@@ -1,4 +1,4 @@
-.grid{
+.grid {
     background-image: url("../../../assets/sean-pollock-PhYq704ffdA-unsplash.jpg") !important;
     background-size: cover;
     background-position: center;
@@ -7,8 +7,14 @@
 }
 
 @media screen and (min-width: 1400px) {
-.grid {
-    background-position: top;
+    .grid {
+        background-position: top;
+    }
+
 }
 
+@media screen and (max-width: 1000px) {
+    .grid {
+        height: 100vmax;
+    }
 }
