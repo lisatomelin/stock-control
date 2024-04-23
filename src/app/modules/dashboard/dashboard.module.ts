@@ -11,6 +11,7 @@ import { ToolbarModule } from 'primeng/toolbar'
 import { MessageService } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
 import { CookieService } from 'ngx-cookie-service';
+import { ChartModule } from 'primeng/chart'
 
 
 
@@ -28,6 +29,7 @@ import { CookieService } from 'ngx-cookie-service';
     ButtonModule,
     ToolbarModule, 
     SidebarModule,
+    ChartModule,
   ],
   providers: [MessageService, CookieService],
 })

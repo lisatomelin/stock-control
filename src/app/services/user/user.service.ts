@@ -19,6 +19,7 @@ export class UserService {
   constructor(private http: HttpClient, private cookie: CookieService) { }
 
   signupUser(requestDatas: SignupUserRequest): Observable<SignupUserResponse> {
+    console.log("estou funcionando na service")
     return this.http.post<SignupUserResponse>(`${this.API_URL}/user`, 
     requestDatas
   );

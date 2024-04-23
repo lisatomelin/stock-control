@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="flex justify-content-center align-content-center text-align-center">
 
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmitLoginForm">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmitLoginForm()">
                 <p-card styleClass="mt-10" header="Login" subheader="Faça login com sua conta existente" *ngIf="loginCard">
 
                     <div class="flex justify-content-center align-content-center text-align-center">
@@ -34,7 +34,7 @@
                 </p-card>
             </form>
 
-            <form [formGroup]="signupForm" (ngSubmit)="onSubmitsignupForm">
+            <form [formGroup]="signupForm" (ngSubmit)="onSubmitsignupForm()">
                 <p-card styleClass="mt-10" 
                 header="Criar conta" 
                 subheader="Crie já sua conta gratuita"
@@ -66,7 +66,7 @@
 
                     <div class="card flex justify-content-center mt-3 ">
 
-                        <button type="submit" pButton pRipple label="Criar conta" [disabled]="!this.signupForm.valid" > </button>
+                        <button  type="submit" pButton pRipple label="Criar conta" [disabled]="!this.signupForm.valid" > </button>
                     </div>
 
                     <span
