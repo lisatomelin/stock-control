@@ -38,7 +38,6 @@ export class HomeComponent {
         next: (response) => {
           if (response) {
             this.cookieService.set('USER_INFO', response?.token);
-
             this.loginForm.reset();
 
             this.messageService.add({
