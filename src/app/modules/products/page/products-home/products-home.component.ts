@@ -1,29 +1,33 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { GetAllProductsResponse } from 'src/app/models/interfaces/products/request/response/GetAllProductsResponse';
-import { ProductsDatasTransferService } from 'src/app/services/products/products-datas-transfer.service';
-import { ProductsService } from 'src/app/services/products/products.service';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ProductsService } from '../../../../services/products/products.service';
+import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { EventAction } from 'src/app/models/interfaces/products/events/EventAction';
+import { GetAllProductsResponse } from 'src/app/models/interfaces/products/events/response/GetAllProductsResponse';
+import { ProductFormComponent } from '../../components/product-form/product-form/product-form.component';
+import { ProductsDatasTransferService } from 'src/app/services/products/products-datas-transfer.service';
+
 
 @Component({
   selector: 'app-products-home',
   templateUrl: './products-home.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class ProductsHomeComponent implements OnInit, OnDestroy {
   private readonly destroy$: Subject<void> = new Subject();
+  private ref!: DynamicDialogRef;
   public productsDatas: Array<GetAllProductsResponse> = [];
 
-
   constructor(
-    private productService: ProductsService,
+    private productsService: ProductsService,
     private productsDtService: ProductsDatasTransferService,
     private router: Router,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
-  ) { }
+    private confirmationService: ConfirmationService,
+    private dialogService: DialogService
+  ) {}
 
   ngOnInit(): void {
     this.getServiceProductsDatas();
@@ -34,12 +38,11 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
 
     if (productsLoaded.length > 0) {
       this.productsDatas = productsLoaded;
-
     } else this.getAPIProductsDatas();
   }
 
   getAPIProductsDatas() {
-    this.productService
+    this.productsService
       .getAllProducts()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -48,7 +51,6 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
             this.productsDatas = response;
           }
         },
-
         error: (err) => {
           console.log(err);
           this.messageService.add({
@@ -59,15 +61,26 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
           });
           this.router.navigate(['/dashboard']);
         },
-
       });
   }
 
-  handleProductsDatas(event: EventAction) {
+  handleProductAction(event: EventAction): void {
     if (event) {
-      console.timeLog('DADOS DO EVENTO RECEBIDO', event);
+      this.ref = this.dialogService.open(ProductFormComponent, {
+        header: event?.action,
+        width: '70%',
+        contentStyle: { overflow: 'auto' },
+        baseZIndex: 10000,
+        maximizable: true,
+        data: {
+          event: event,
+          productDatas: this.productsDatas,
+        },
+      });
+      this.ref.onClose.pipe(takeUntil(this.destroy$)).subscribe({
+        next: () => this.getAPIProductsDatas(),
+      });
     }
-
   }
 
   handleDeleteProductAction(event: {
@@ -76,19 +89,19 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
   }): void {
     if (event) {
       this.confirmationService.confirm({
-        message: `Conforma a exclusão do produto: ${event?.productName}?`,
+        message: `Confirma a exclusão do produto: ${event?.productName}?`,
         header: 'Confirmação de exclusão',
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'Sim',
         rejectLabel: 'Não',
         accept: () => this.deleteProduct(event?.product_id),
-      })
+      });
     }
   }
 
   deleteProduct(product_id: string) {
     if (product_id) {
-      this.productService
+      this.productsService
         .deleteProduct(product_id)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
@@ -114,8 +127,6 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
             });
           },
         });
-
-
     }
   }
 
@@ -123,10 +134,4 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
 }
-
-
-
-
-
