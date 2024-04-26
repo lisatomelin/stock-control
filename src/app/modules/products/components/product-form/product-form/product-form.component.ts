@@ -7,13 +7,13 @@ import { Subject, takeUntil } from 'rxjs';
 import { GetCategoriesResponse } from 'src/app/models/interfaces/categories/responses/GetCategoriesResponse';
 import { EventAction } from 'src/app/models/interfaces/products/events/EventAction';
 import { GetAllProductsResponse } from 'src/app/models/interfaces/products/events/response/GetAllProductsResponse';
-import { CreateProductRequest } from 'src/app/models/interfaces/products/request/CreateProductRequest';
+import { CreateProductRequest } from 'src/app/models/interfaces/products/events/request/CreateProductRequest';
 import { CategoriesService } from 'src/app/services/categories/categories.service';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { ProductsDatasTransferService } from 'src/app/services/products/products-datas-transfer.service';
 import { ProductEvent } from 'src/app/models/enums/products/ProductEvent';
-import { EditProductRequest } from 'src/app/models/interfaces/products/request/EditProductrequest';
-import { SaleProductRequest } from 'src/app/models/interfaces/products/request/SaleProductRequest';
+import { EditProductRequest } from 'src/app/models/interfaces/products/events/request/EditProductrequest';
+import { SaleProductRequest } from 'src/app/models/interfaces/products/events/request/SaleProductRequest';
 
 @Component({
   selector: 'app-product-form',

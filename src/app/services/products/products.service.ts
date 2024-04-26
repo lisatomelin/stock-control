@@ -6,9 +6,9 @@ import { CreateProductResponse } from 'src/app/models/interfaces/products/events
 import { DeleteProductResponse } from 'src/app/models/interfaces/products/events/response/DeleteProductResponse';
 import { GetAllProductsResponse } from 'src/app/models/interfaces/products/events/response/GetAllProductsResponse';
 import { SaleProductResponse } from 'src/app/models/interfaces/products/events/response/SaleProductResponse';
-import { CreateProductRequest } from 'src/app/models/interfaces/products/request/CreateProductRequest';
-import { EditProductRequest } from 'src/app/models/interfaces/products/request/EditProductrequest';
-import { SaleProductRequest } from 'src/app/models/interfaces/products/request/SaleProductRequest';
+import { CreateProductRequest } from 'src/app/models/interfaces/products/events/request/CreateProductRequest';
+import { EditProductRequest } from 'src/app/models/interfaces/products/events/request/EditProductrequest';
+import { SaleProductRequest } from 'src/app/models/interfaces/products/events/request/SaleProductRequest';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

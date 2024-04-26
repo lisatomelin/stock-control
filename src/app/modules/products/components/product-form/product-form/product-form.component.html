@@ -29,10 +29,9 @@
         </div>
       </div>
     </form>
-  </div>
-  
+  </div>  
 
-  <div *ngIf="productAction?.event?.action === editProductAction">
+<div *ngIf="productAction?.event?.action === editProductAction">
     <form [formGroup]="editProductForm" (ngSubmit)="handleSubmitEditProduct()">
       <div class="card flex flex-column md:flex-column gap-3">
         <input pInputText placeholder="Nome" formControlName="name" />
@@ -68,7 +67,7 @@
     </form>
   </div>
 
-  <div *ngIf="productAction?.event?.action === saleProductAction">
+<div *ngIf="productAction?.event?.action === saleProductAction">
     <form [formGroup]="saleProductForm" (ngSubmit)="handleSubmitSaleProduct()">
       <div class="card flex flex-column md:flex-column gap-3">
         <p-dropdown
