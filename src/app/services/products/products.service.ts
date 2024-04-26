@@ -5,12 +5,14 @@ import { Observable, map } from 'rxjs';
 import { CreateProductResponse } from 'src/app/models/interfaces/products/events/response/CreateProductResponse';
 import { DeleteProductResponse } from 'src/app/models/interfaces/products/events/response/DeleteProductResponse';
 import { GetAllProductsResponse } from 'src/app/models/interfaces/products/events/response/GetAllProductsResponse';
+import { SaleProductResponse } from 'src/app/models/interfaces/products/events/response/SaleProductResponse';
 import { CreateProductRequest } from 'src/app/models/interfaces/products/request/CreateProductRequest';
 import { EditProductRequest } from 'src/app/models/interfaces/products/request/EditProductrequest';
+import { SaleProductRequest } from 'src/app/models/interfaces/products/request/SaleProductRequest';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductsService {
   private API_URL = environment.API_URL;
@@ -22,14 +24,15 @@ export class ProductsService {
     }),
   };
 
-  constructor(private http: HttpClient, private cookie: CookieService) { }
+  constructor(private http: HttpClient, private cookie: CookieService) {}
 
   getAllProducts(): Observable<Array<GetAllProductsResponse>> {
-    return this.http.get<Array<GetAllProductsResponse>>(`${this.API_URL}/products`, this.httpOptions
-
-    )
-    .pipe(map((product) => product.filter((data) => data?.amount > 0)));
-
+    return this.http
+      .get<Array<GetAllProductsResponse>>(
+        `${this.API_URL}/products`,
+        this.httpOptions
+      )
+      .pipe(map((product) => product.filter((data) => data?.amount > 0)));
   }
 
   deleteProduct(product_id: string): Observable<DeleteProductResponse> {
@@ -38,10 +41,10 @@ export class ProductsService {
       {
         ...this.httpOptions,
         params: {
-          product_id:product_id,
-        }
+          product_id: product_id,
+        },
       }
-    )
+    );
   }
 
   createProduct(
@@ -62,6 +65,20 @@ export class ProductsService {
     );
   }
 
-
-
+  saleProduct(
+    requestDatas: SaleProductRequest
+  ): Observable<SaleProductResponse> {
+    return this.http.put<SaleProductResponse>(
+      `${this.API_URL}/product/sale`,
+      {
+        amount: requestDatas?.amount,
+      },
+      {
+        ...this.httpOptions,
+        params: {
+          product_id: requestDatas?.product_id,
+        },
+      }
+    );
+  }
 }
