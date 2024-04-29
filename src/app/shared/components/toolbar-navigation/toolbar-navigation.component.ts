@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ProductEvent } from 'src/app/models/enums/products/ProductEvent';
-import { ProductFormComponent } from 'src/app/modules/products/components/product-form/product-form/product-form.component';
+import { ProductFormComponent } from 'src/app/modules/products/components/product-form/product-form.component';
 
 @Component({
   selector: 'app-toolbar-navigation',
