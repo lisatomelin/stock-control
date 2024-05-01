@@ -6,8 +6,9 @@ import { ProductsService } from '../../../../services/products/products.service'
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { EventAction } from 'src/app/models/interfaces/products/events/EventAction';
 import { GetAllProductsResponse } from 'src/app/models/interfaces/products/events/response/GetAllProductsResponse';
-import { ProductFormComponent } from '../../components/product-form/product-form.component';
+
 import { ProductsDatasTransferService } from 'src/app/services/products/products-datas-transfer.service';
+import { ProductFormComponent } from '../../components/product-form/product-form/product-form.component';
 
 
 @Component({

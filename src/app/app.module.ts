@@ -12,12 +12,14 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
+import { ProductsFormComponent } from './components/products-form/products-form.component';
 
  
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,    
+    HomeComponent,
+    ProductsFormComponent,    
     
   ],
   imports: [
